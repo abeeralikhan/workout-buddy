@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+// DZjsouZsgVhwb0hS
+
 // GET all workouts
 router.get("/", (req, res) => {
   res.json({ msg: "GET all workouts" });
