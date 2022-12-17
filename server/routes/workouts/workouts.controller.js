@@ -1,40 +1,38 @@
-const mongoose = require("mongoose");
-
-const workouts = require("../../models/workouts.mongo");
+const {
+  getAllWorkouts,
+  getWorkout,
+  createWorkout,
+} = require("../../models/workouts.model");
 
 // get all workouts
 async function httpGetWorkouts(req, res) {
-  const allWorkouts = await workouts.find({}).sort({ createdAt: -1 });
+  const workouts = await getAllWorkouts();
 
-  res.status(200).json(allWorkouts);
+  res.status(200).json(workouts);
 }
 
 // get a single workout
 async function httpGetWorkout(req, res) {
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  const { workout, error } = await getWorkout(id);
+
+  if (!workout || error) {
     return res.status(404).json({ error: "No such workout exist" });
   }
 
-  const singleWorkout = await workouts.findById(id);
-
-  if (!singleWorkout) {
-    return res.status(404).json({ error: "No such workout exist" });
-  }
-
-  res.status(200).json(singleWorkout);
+  res.status(200).json(workout);
 }
 
 // create a new workout
 async function httpCreateWorkout(req, res) {
   const { title, load, reps } = req.body;
-  try {
-    const workoutDoc = await workouts.create({ title, load, reps });
-    res.status(200).json(workoutDoc);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+  const { workoutDoc, error } = await createWorkout({ title, load, reps });
+  if (error) {
+    return res.status(400).json({ error: error.message });
   }
+
+  res.status(200).json(workoutDoc);
 }
 
 // delete a workout
