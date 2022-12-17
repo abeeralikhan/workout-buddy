@@ -1,5 +1,5 @@
 const workouts = require("./workouts.mongo");
-const { isIdValid } = require("../utils");
+const { isIdValid } = require("../../utils");
 
 async function getAllWorkouts() {
   return await workouts.find({}).sort({ createdAt: -1 });

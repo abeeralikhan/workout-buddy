@@ -4,7 +4,7 @@ const {
   createWorkout,
   deleteWorkout,
   updateWorkout,
-} = require("../../models/workouts.model");
+} = require("../../models/workouts/workouts.model");
 
 // get all workouts
 async function httpGetWorkouts(req, res) {
