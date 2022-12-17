@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const workouts = require("../../models/workouts.model");
+const workouts = require("../../models/workouts.mongo");
 
 // get all workouts
 async function httpGetWorkouts(req, res) {
