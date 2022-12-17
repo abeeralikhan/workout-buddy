@@ -2,6 +2,8 @@ const {
   getAllWorkouts,
   getWorkout,
   createWorkout,
+  deleteWorkout,
+  updateWorkout,
 } = require("../../models/workouts.model");
 
 // get all workouts
@@ -14,7 +16,6 @@ async function httpGetWorkouts(req, res) {
 // get a single workout
 async function httpGetWorkout(req, res) {
   const { id } = req.params;
-
   const { workout, error } = await getWorkout(id);
 
   if (!workout || error) {
@@ -27,20 +28,43 @@ async function httpGetWorkout(req, res) {
 // create a new workout
 async function httpCreateWorkout(req, res) {
   const { title, load, reps } = req.body;
-  const { workoutDoc, error } = await createWorkout({ title, load, reps });
+  const { workout, error } = await createWorkout({ title, load, reps });
+
   if (error) {
     return res.status(400).json({ error: error.message });
   }
 
-  res.status(200).json(workoutDoc);
+  res.status(200).json(workout);
 }
 
 // delete a workout
+async function httpDeleteWorkout(req, res) {
+  const { id } = req.params;
+  const { workout, error } = await deleteWorkout(id);
+
+  if (!workout || error) {
+    return res.status(404).json({ error: "No such workout exist" });
+  }
+
+  res.status(200).json(workout);
+}
 
 // update a workout
+async function httpUpdateWorkout(req, res) {
+  const { id } = req.params;
+  const { workout, error } = await updateWorkout(id, req.body);
+
+  if (!workout || error) {
+    return res.status(404).json({ error: "No such workout exist" });
+  }
+
+  res.status(200).json(workout);
+}
 
 module.exports = {
   httpCreateWorkout,
   httpGetWorkout,
   httpGetWorkouts,
+  httpDeleteWorkout,
+  httpUpdateWorkout,
 };

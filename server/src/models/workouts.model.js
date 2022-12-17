@@ -6,27 +6,39 @@ async function getAllWorkouts() {
 }
 
 async function getWorkout(id) {
-  if (isIdValid(id)) return { error: true };
+  if (!isIdValid(id)) return { error: true };
 
   const workout = await workouts.findById(id);
-  return { workout, error: false };
+  return { workout };
 }
 
-async function createWorkout(workout) {
+async function createWorkout(workoutObj) {
   try {
-    const workoutDoc = await workouts.create(workout);
-    return { workoutDoc };
+    const workout = await workouts.create(workoutObj);
+    return { workout };
   } catch (error) {
     return { error };
   }
 }
 
 async function deleteWorkout(id) {
-  if (isIdValid(id)) return;
+  if (!isIdValid(id)) return { error: true };
+
+  const workout = await workouts.findByIdAndDelete(id);
+  return { workout };
+}
+
+async function updateWorkout(id, workoutObj) {
+  if (!isIdValid(id)) return { error: true };
+
+  const workout = await workouts.findByIdAndUpdate(id, { ...workoutObj });
+  return { workout };
 }
 
 module.exports = {
   getAllWorkouts,
   getWorkout,
   createWorkout,
+  deleteWorkout,
+  updateWorkout,
 };
