@@ -1,5 +1,5 @@
 import WorkoutDetails from "../components/WorkoutDetails";
-import useWorkouts from "../useWorkouts";
+import useWorkouts from "../hooks/useWorkouts/useWorkouts";
 
 const Home = () => {
   const [workouts, status] = useWorkouts();
