@@ -1,4 +1,5 @@
 import WorkoutDetails from "../components/WorkoutDetails";
+import WorkoutForm from "../components/WorkoutForm";
 import useWorkouts from "../hooks/useWorkouts/useWorkouts";
 
 const Home = () => {
@@ -19,6 +20,7 @@ const Home = () => {
           <WorkoutDetails key={workout._id} workout={workout} />
         ))}
       </div>
+      <WorkoutForm />
     </div>
   );
 };
