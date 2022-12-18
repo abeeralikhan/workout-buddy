@@ -1,17 +1,27 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    staleTime: Infinity,
+    cacheTime: Infinity,
+  },
+});
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
-        <div className="pages">
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </div>
+        <QueryClientProvider client={queryClient}>
+          <Navbar />
+          <div className="pages">
+            <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </div>
+        </QueryClientProvider>
       </BrowserRouter>
     </div>
   );
