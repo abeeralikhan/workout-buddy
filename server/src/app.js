@@ -1,9 +1,12 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
+
 const workoutsRouter = require("./routes/workouts/workouts.route");
 
 const app = express();
 
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(morgan("combined")); // combined --> popular logs format
 app.use(express.json());
 
