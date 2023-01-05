@@ -1,7 +1,9 @@
 import { useState } from "react";
+import useWorkoutsContext from "../hooks/useWorkoutsContext";
 
 const WorkoutForm = () => {
   const [error, setError] = useState(null);
+  const { dispatch } = useWorkoutsContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +27,7 @@ const WorkoutForm = () => {
       return;
     }
 
+    dispatch({ type: "CREATE_WORKOUT", payload: json });
     setError(null);
     // clear form
     e.target.reset();
