@@ -7,7 +7,7 @@ const workoutsRouter = require("./routes/workouts/workouts.route");
 const app = express();
 
 app.use(cors({ origin: "http://localhost:5173" }));
-app.use(morgan("combined")); // combined --> popular logs format
+app.use(morgan("dev")); // combined --> popular logs format
 app.use(express.json());
 
 app.use("/api/workouts", workoutsRouter);
