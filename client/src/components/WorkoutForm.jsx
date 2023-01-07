@@ -3,6 +3,7 @@ import useWorkoutsContext from "../hooks/useWorkoutsContext";
 
 const WorkoutForm = () => {
   const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([]);
   const { dispatch } = useWorkoutsContext();
 
   const handleSubmit = async (e) => {
@@ -24,13 +25,14 @@ const WorkoutForm = () => {
 
     if (!response.ok) {
       setError(json.error);
+      setEmptyFields(json.emptyFields);
       return;
     }
 
-    dispatch({ type: "CREATE_WORKOUT", payload: json });
+    dispatch({ type: "CREATE_WORKOUT", payload: json }); // update local state
     setError(null);
-    // clear form
-    e.target.reset();
+    setEmptyFields([]);
+    e.target.reset(); // clear form
   };
 
   return (
@@ -38,15 +40,30 @@ const WorkoutForm = () => {
       <h3>Add a New Workout</h3>
       <label htmlFor="title">
         Excersize Title
-        <input type="text" id="title" name="title" />
+        <input
+          type="text"
+          id="title"
+          name="title"
+          className={emptyFields.includes("title") && "error"}
+        />
       </label>
       <label htmlFor="load">
         Load (in kg):
-        <input type="number" id="load" name="load" />
+        <input
+          type="number"
+          id="load"
+          name="load"
+          className={emptyFields.includes("load") && "error"}
+        />
       </label>
       <label htmlFor="reps">
         Reps:
-        <input type="number" id="reps" name="reps" />
+        <input
+          type="number"
+          id="reps"
+          name="reps"
+          className={emptyFields.includes("reps") && "error"}
+        />
       </label>
       <button>Add Workout</button>
       {error && <div className="error">{error}</div>}
