@@ -27,7 +27,10 @@ const WorkoutDetails = ({ workout }) => {
         {reps}
       </p>
       <p>{createdAt}</p>
-      <span onClick={handleClick}>DELETE</span>
+
+      <span class="material-symbols-outlined" onClick={handleClick}>
+        delete
+      </span>
     </div>
   );
 };
