@@ -11,7 +11,7 @@ const useWorkouts = () => {
     if (results.status === "success") {
       dispatch({ type: "SET_WORKOUTS", payload: results?.data ?? [] });
     }
-  }, [results.data]);
+  }, [results.data, dispatch]);
 
   return [workouts ?? [], results.status];
 };
