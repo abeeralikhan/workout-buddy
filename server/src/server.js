@@ -15,6 +15,8 @@ mongoose
   })
   .catch((error) => console.log(error));
 
+mongoose.set("strictQuery", false);
+
 server.listen(PORT, () => {
   console.log(`Server is listening at ${PORT}`);
 });
