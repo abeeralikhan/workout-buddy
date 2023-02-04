@@ -65,8 +65,13 @@ header a {
   padding: 6px;
   border-radius: 50%;
   color: #333;
+  transition: 0.2s;
 }
 
+.workout-details span:hover {
+  color: #f1f1f1;
+  background: red;
+}
 /* new workout form */
 label,
 input {
