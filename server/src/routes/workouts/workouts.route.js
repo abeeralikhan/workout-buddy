@@ -1,4 +1,4 @@
-const express = require("express");
+const { Router } = require("express");
 
 const {
   httpCreateWorkout,
@@ -8,7 +8,7 @@ const {
   httpUpdateWorkout,
 } = require("./workouts.controller");
 
-const router = express.Router();
+const router = Router();
 
 // GET all workouts
 router.get("/", httpGetWorkouts);
